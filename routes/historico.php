@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/estado-item', function () {
-    return view('welcome');
-});
+// use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
+
+// Route::get('/estado-item', function () {
+//     return view('welcome');
+// });
+
+Route::get('/estado-item', 'EtadoItemController@index');

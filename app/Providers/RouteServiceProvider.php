@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapHistoricoRoutes();
         //
     }
 
@@ -76,6 +77,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * Rutas para la aplicacion de Gestion Documental Historico
      *
+     * Copiar funcion en la funcion map  $this->mapHistoricoRoutes();
+     * 
      * @return void
      */
     protected function mapHistoricoRoutes()
