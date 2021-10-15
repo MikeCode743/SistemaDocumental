@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Historico;
 
 use App\Http\Controllers\Controller;
-use App\Models\Historico\CatalogoAcuerdo;
+use App\Models\Historico\AcuerdoCatalogo;
 use Illuminate\Http\Request;
 
-class CatalogoAcuerdoController extends Controller
+class AcuerdoCatalogoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class CatalogoAcuerdoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Historico\CatalogoAcuerdo  $catalogoAcuerdo
+     * @param  \App\Models\Historico\AcuerdoCatalogo  $acuerdoCatalogo
      * @return \Illuminate\Http\Response
      */
-    public function show(CatalogoAcuerdo $catalogoAcuerdo)
+    public function show(AcuerdoCatalogo $acuerdoCatalogo)
     {
         //
     }
@@ -53,10 +53,10 @@ class CatalogoAcuerdoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Historico\CatalogoAcuerdo  $catalogoAcuerdo
+     * @param  \App\Models\Historico\AcuerdoCatalogo  $acuerdoCatalogo
      * @return \Illuminate\Http\Response
      */
-    public function edit(CatalogoAcuerdo $catalogoAcuerdo)
+    public function edit(AcuerdoCatalogo $acuerdoCatalogo)
     {
         //
     }
@@ -65,10 +65,10 @@ class CatalogoAcuerdoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Historico\CatalogoAcuerdo  $catalogoAcuerdo
+     * @param  \App\Models\Historico\AcuerdoCatalogo  $acuerdoCatalogo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CatalogoAcuerdo $catalogoAcuerdo)
+    public function update(Request $request, AcuerdoCatalogo $acuerdoCatalogo)
     {
         //
     }
@@ -76,10 +76,10 @@ class CatalogoAcuerdoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Historico\CatalogoAcuerdo  $catalogoAcuerdo
+     * @param  \App\Models\Historico\AcuerdoCatalogo  $acuerdoCatalogo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CatalogoAcuerdo $catalogoAcuerdo)
+    public function destroy(AcuerdoCatalogo $acuerdoCatalogo)
     {
         //
     }
