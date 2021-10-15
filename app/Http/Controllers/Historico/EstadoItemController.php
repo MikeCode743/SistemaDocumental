@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Historico;
 
 use App\Http\Controllers\Controller;
-use App\Models\Historico\GestionTemporada;
+use App\Models\Historico\EstadoItem;
 use Illuminate\Http\Request;
 
-class GestionTemporadaController extends Controller
+class EstadoItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class GestionTemporadaController extends Controller
      */
     public function index()
     {
-        //
+        return EstadoItem::all();
     }
 
     /**
@@ -36,16 +36,31 @@ class GestionTemporadaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            //code..
+
+            $estadoItem = EstadoItem::updateOrCreate(
+                ['id' => $request->id],
+                [
+                    'nombre' => $request->nombre,
+                    'nombre_corto' => $request->nombre_corto,
+                    'descripcion' => $request->descripcion,
+                    'is_visible' => $request->is_visible,
+                ]
+            );
+            return $estadoItem;
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Historico\GestionTemporada  $gestionTemporada
+     * @param  \App\Models\Historico\EstadoItem  $estadoItem
      * @return \Illuminate\Http\Response
      */
-    public function show(GestionTemporada $gestionTemporada)
+    public function show(EstadoItem $estadoItem)
     {
         //
     }
@@ -53,10 +68,10 @@ class GestionTemporadaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Historico\GestionTemporada  $gestionTemporada
+     * @param  \App\Models\Historico\EstadoItem  $estadoItem
      * @return \Illuminate\Http\Response
      */
-    public function edit(GestionTemporada $gestionTemporada)
+    public function edit(EstadoItem $estadoItem)
     {
         //
     }
@@ -65,10 +80,10 @@ class GestionTemporadaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Historico\GestionTemporada  $gestionTemporada
+     * @param  \App\Models\Historico\EstadoItem  $estadoItem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GestionTemporada $gestionTemporada)
+    public function update(Request $request, EstadoItem $estadoItem)
     {
         //
     }
@@ -76,11 +91,16 @@ class GestionTemporadaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Historico\GestionTemporada  $gestionTemporada
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GestionTemporada $gestionTemporada)
+    public function destroy($id)
     {
-        //
+        try {
+            EstadoItem::destroy($id);
+            return "eliminado";
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 }

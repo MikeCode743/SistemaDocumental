@@ -15,7 +15,7 @@ class AcuerdoCatalogoController extends Controller
      */
     public function index()
     {
-        //
+        return AcuerdoCatalogo::all();
     }
 
     /**
@@ -36,7 +36,20 @@ class AcuerdoCatalogoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            //code..
+
+            $estadoItem = AcuerdoCatalogo::updateOrCreate(
+                ['id' => $request->id],
+                [
+                    'nombre' => $request->nombre,
+                    'descripcion' => $request->descripcion,
+                ]
+            );
+            return $estadoItem;
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -79,8 +92,13 @@ class AcuerdoCatalogoController extends Controller
      * @param  \App\Models\Historico\AcuerdoCatalogo  $acuerdoCatalogo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AcuerdoCatalogo $acuerdoCatalogo)
+    public function destroy($id)
     {
-        //
+        try {
+            AcuerdoCatalogo::destroy($id);
+            return "eliminado";
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 }

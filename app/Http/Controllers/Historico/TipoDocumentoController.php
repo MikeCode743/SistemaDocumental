@@ -15,7 +15,7 @@ class TipoDocumentoController extends Controller
      */
     public function index()
     {
-        //
+        return TipoDocumento::all();
     }
 
     /**
@@ -36,7 +36,20 @@ class TipoDocumentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            //code..
+
+            $estadoItem = TipoDocumento::updateOrCreate(
+                ['id' => $request->id],
+                [
+                    'nombre' => $request->nombre,
+                    'descripcion' => $request->descripcion,
+                ]
+            );
+            return $estadoItem;
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -79,8 +92,13 @@ class TipoDocumentoController extends Controller
      * @param  \App\Models\Historico\TipoDocumento  $tipoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TipoDocumento $tipoDocumento)
+    public function destroy($id)
     {
-        //
+        try {
+            TipoDocumento::destroy($id);
+            return "eliminado";
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 }

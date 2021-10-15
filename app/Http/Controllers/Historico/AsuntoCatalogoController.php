@@ -15,7 +15,7 @@ class AsuntoCatalogoController extends Controller
      */
     public function index()
     {
-        //
+        return AsuntoCatalogo::all();
     }
 
     /**
@@ -36,7 +36,21 @@ class AsuntoCatalogoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            //code..
+
+            $estadoItem = AsuntoCatalogo::updateOrCreate(
+                ['id' => $request->id],
+                [
+                    'nombre' => $request->nombre,
+                    'descripcion' => $request->descripcion,
+                    'id_gd_acuerdo_catalogo' => $request->id_gd_acuerdo_catalogo,
+                ]
+            );
+            return $estadoItem;
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -79,8 +93,13 @@ class AsuntoCatalogoController extends Controller
      * @param  \App\Models\Historico\AsuntoCatalogo  $asuntoCatalogo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AsuntoCatalogo $asuntoCatalogo)
+    public function destroy($id)
     {
-        //
+        try {
+            AsuntoCatalogo::destroy($id);
+            return "eliminado";
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 }

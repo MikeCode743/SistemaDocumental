@@ -15,7 +15,7 @@ class TemporadaGestionController extends Controller
      */
     public function index()
     {
-        //
+        return TemporadaGestion::all();
     }
 
     /**
@@ -36,7 +36,21 @@ class TemporadaGestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            //code..
+
+            $estadoItem = TemporadaGestion::updateOrCreate(
+                ['id' => $request->id],
+                [
+                    'nombre_rector' => $request->nombre_rector,
+                    'anio_inicio' => $request->anio_inicio,
+                    'anio_finalizacion' => $request->anio_finalizacion,
+                ]
+            );
+            return $estadoItem;
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -79,8 +93,13 @@ class TemporadaGestionController extends Controller
      * @param  \App\Models\Historico\TemporadaGestion  $temporadaGestion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TemporadaGestion $temporadaGestion)
+    public function destroy($id)
     {
-        //
+        try {
+            TemporadaGestion::destroy($id);
+            return "eliminado";
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 }
