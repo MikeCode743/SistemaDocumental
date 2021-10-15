@@ -52,8 +52,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -66,8 +66,23 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "Historico" routes for the application.
+     *
+     * Rutas para la aplicacion de Gestion Documental Historico
+     *
+     * @return void
+     */
+    protected function mapHistoricoRoutes()
+    {
+        Route::prefix('historico')
+            ->middleware('web')
+            ->namespace($this->namespace . '\Historico')
+            ->group(base_path('routes/historico.php'));
     }
 }

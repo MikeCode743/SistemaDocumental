@@ -15,7 +15,7 @@ class EtadoItemController extends Controller
      */
     public function index()
     {
-        //
+        dd(EtadoItem::all());
     }
 
     /**
