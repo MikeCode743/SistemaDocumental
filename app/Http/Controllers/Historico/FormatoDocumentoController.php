@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Historico;
 
-use App\Http\Controllers\Controller;
-use App\Models\Historico\Item;
+use App\Models\Historico\FormatoDocumento;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class ItemController extends Controller
+class FormatoDocumentoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,25 +34,18 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $tipo_documento, $is_acuerdo)
+    public function store(Request $request)
     {
-        $item = new item;
-        $item->id_gd_temporada_gestion = $request->temporada_gestion;
-        $item->id_gd_acuerdo_catalogo = $request->acuerdo_catalogo;
-        $item->id_gd_tipo_documento = $tipo_documento;
-        $item->informacion = $request->informacion;
-        $item->save();
-
-        return $item;
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Historico\Item  $item
+     * @param  \App\Models\Historico\FormatoDocumento  $formatoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show(FormatoDocumento $formatoDocumento)
     {
         //
     }
@@ -60,10 +53,10 @@ class ItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Historico\Item  $item
+     * @param  \App\Models\Historico\FormatoDocumento  $formatoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+    public function edit(FormatoDocumento $formatoDocumento)
     {
         //
     }
@@ -72,10 +65,10 @@ class ItemController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Historico\Item  $item
+     * @param  \App\Models\Historico\FormatoDocumento  $formatoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, FormatoDocumento $formatoDocumento)
     {
         //
     }
@@ -83,10 +76,10 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Historico\Item  $item
+     * @param  \App\Models\Historico\FormatoDocumento  $formatoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item $item)
+    public function destroy(FormatoDocumento $formatoDocumento)
     {
         //
     }

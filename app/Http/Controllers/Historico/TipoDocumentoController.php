@@ -39,14 +39,15 @@ class TipoDocumentoController extends Controller
         try {
             //code..
 
-            $estadoItem = TipoDocumento::updateOrCreate(
-                ['id' => $request->id],
+            $tipoDocumento = TipoDocumento::updateOrCreate(
+                ['nombre_corto' => $request->nombre_corto],
                 [
+                    'nombre_corto' => $request->nombre_corto,
                     'nombre' => $request->nombre,
                     'descripcion' => $request->descripcion,
                 ]
             );
-            return $estadoItem;
+            return $tipoDocumento;
         } catch (\Exception $e) {
             return $e;
         }

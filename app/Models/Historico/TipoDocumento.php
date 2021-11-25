@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class TipoDocumento extends Model
 {
     protected $table = 'gd_tipo_documento';
-    protected $fillable = ['nombre', 'descripcion'];
+    protected $primaryKey = 'nombre_corto';
+    protected $fillable = ['nombre_corto', 'nombre', 'descripcion'];
 }
