@@ -15,7 +15,7 @@ class FormatoDocumentoController extends Controller
      */
     public function index()
     {
-        //
+        return FormatoDocumento::all();
     }
 
     /**
@@ -36,7 +36,20 @@ class FormatoDocumentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            //code..
+
+            $tipoDocumento = FormatoDocumento::updateOrCreate(
+                ['id' => $request->id],
+                [
+                    'nombre' => $request->nombre,
+                    'descripcion' => $request->descripcion,
+                ]
+            );
+            return $tipoDocumento;
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -79,8 +92,13 @@ class FormatoDocumentoController extends Controller
      * @param  \App\Models\Historico\FormatoDocumento  $formatoDocumento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FormatoDocumento $formatoDocumento)
+    public function destroy($id)
     {
-        //
+        try {
+            FormatoDocumento::destroy($id);
+            return "eliminado";
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 }

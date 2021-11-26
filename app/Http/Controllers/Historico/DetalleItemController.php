@@ -29,7 +29,7 @@ class DetalleItemController extends Controller
         $estado_item = EstadoItem::all();
         $formato_documento =  FormatoDocumento::all();
         // $codigo_core_unidad =  CoreUnidades::all();
-        $codigo_core_unidad =  ['codigo' => 'RRHH', 'nombre' => 'Recursos Humanos'];
+        // $codigo_core_unidad =  ['codigo' => 'RRHH', 'nombre' => 'Recursos Humanos'];
         $idioma = ['Español', 'Ingles', 'Frances', 'Japonés', 'Alemán'];
     }
 
@@ -52,6 +52,14 @@ class DetalleItemController extends Controller
     public function storeAcuerdo(Request $request)
     {
         $metadata_acuerdo = $this->storeMetadataAcuerdo($request);
+        $archivos_bd = $this->subirDocumento($request, "Acuerdos");
+        foreach ($archivos_bd as  $archivo) {
+            DetalleItem::create([
+                'id_gd_archivo' => $archivo->id,
+                'id_gd_metadata_acuerdo' => $metadata_acuerdo->id,
+            ]);
+        }
+        return "Guardado con exito";
     }
 
     /**
@@ -63,19 +71,16 @@ class DetalleItemController extends Controller
     public function storeActa(Request $request)
     {
         $metadata_acta = $this->storeMetadataActa($request);
-        $archivos_bd = $this->subirDocumento($request);
+        $archivos_bd = $this->subirDocumento($request, "Actas");
 
         foreach ($archivos_bd as  $archivo) {
-            # code...
             DetalleItem::create([
                 'id_gd_archivo' => $archivo->id,
-                // 'id_gd_metadata_acuerdo' => "",
                 'id_gd_metadata_acta' => $metadata_acta->id,
             ]);
         }
 
-
-        // return $metadata_acta;
+        return "Guardado con exito";
     }
 
 
@@ -89,7 +94,6 @@ class DetalleItemController extends Controller
      */
     public function storeMetadataActa($data)
     {
-        // dd($data);
         $acta =  new MetadataActa;
         $acta->numero_acta = $data->numero_acta;
         $acta->id_gd_temporada_gestion = $data->periodo_gestion;
@@ -106,17 +110,9 @@ class DetalleItemController extends Controller
     public function storeMetadataAcuerdo($data)
     {
         $metadata = new Metadata;
-
-        $metadata->id_gd_estado_item = $data->estado_item;
-        $metadata->id_gd_formato_documento = $data->formato_documento;
-        // $metadata->id_gd_codigo_core_unidad = $data->codigo_core_unidad;
-        //Actualizar para permitir multiples asuntos
-        $metadata->id_gd_asunto_catalogo = $data->asunto_catalogo;
-
-
-        // $user->roles()->attach($roleId);
-
-
+        $metadata->id_gd_estado_item = $data->id_gd_estado_item;
+        $metadata->id_gd_formato_documento = $data->id_gd_formato_documento;
+        $metadata->codigo_core_unidad = $data->codigo_core_unidad;
         $metadata->titulo = $data->titulo;
         $metadata->titulo_alternativo = $data->titulo_alternativo;
         $metadata->resumen = $data->resumen;
@@ -127,16 +123,11 @@ class DetalleItemController extends Controller
         $metadata->etiquetas = $data->etiquetas;
         $metadata->informacion_adicional = $data->informacion_adicional;
         $metadata->comentarios = $data->comentarios;
-        //Preguntar si aun son necesarios aqui
         $metadata->anio_gestion = $data->anio_gestion;
         $metadata->numero_acta = $data->numero_acta;
-
         $metadata->derechos = $data->derechos;
-
-
-
-
         $metadata->save();
+        $metadata->asuntos()->attach($data->asuntos);
 
         return $metadata;
     }
@@ -147,9 +138,9 @@ class DetalleItemController extends Controller
      * @param  \App\Models\Historico\DetalleItem  $detalleItem
      * @return \Illuminate\Http\Response
      */
-    public function subirDocumento($data)
+    public function subirDocumento($data, $categoria)
     {
-        $directorio = "/SD_Historico/JuntaDirectiva/Actas";
+        $directorio = "/SD_Historico/JuntaDirectiva/" . $categoria;
         $archivos = $data->file('archivos');
         $files  = [];
         foreach ($archivos as $archivo) {

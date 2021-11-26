@@ -33,10 +33,10 @@ Route::prefix('estado-item')->group(function () {
     Route::delete('/eliminar/{id}', 'EstadoItemController@destroy');
 });
 
-Route::prefix('tipo-documento')->group(function () {
-    Route::get('/', 'TipoDocumentoController@index');
-    Route::post('/', 'TipoDocumentoController@store');
-    Route::delete('/eliminar/{id}', 'TipoDocumentoController@destroy');
+Route::prefix('formato-documento')->group(function () {
+    Route::get('/', 'FormatoDocumentoController@index');
+    Route::post('/', 'FormatoDocumentoController@store');
+    Route::delete('/eliminar/{id}', 'FormatoDocumentoController@destroy');
 });
 
 Route::prefix('acuerdo')->group(function () {
@@ -60,4 +60,5 @@ Route::prefix('temporada-gestion')->group(function () {
 Route::prefix('describir-documento')->group(function () {
     Route::get('/', 'DetalleItemController@index');
     Route::post('/acta', 'DetalleItemController@storeActa')->name('agregar.acta');
+    Route::post('/acuerdo', 'DetalleItemController@storeAcuerdo')->name('agregar.acuerdo');
 });
