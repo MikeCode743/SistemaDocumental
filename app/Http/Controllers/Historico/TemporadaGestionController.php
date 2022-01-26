@@ -15,6 +15,8 @@ class TemporadaGestionController extends Controller
      */
     public function index()
     {
+        return view('modulos.historico.administrador.temporada-gestion');
+
         return TemporadaGestion::all();
     }
 

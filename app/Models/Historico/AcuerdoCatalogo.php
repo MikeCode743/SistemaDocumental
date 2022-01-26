@@ -16,4 +16,5 @@ class AcuerdoCatalogo extends Model
     {
         return $this->hasMany('App\Models\Historico\AsuntoCatalogo', 'id_gd_acuerdo_catalogo');
     }
+
 }

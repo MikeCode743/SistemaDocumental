@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Historico;
 use App\Http\Controllers\Controller;
 use App\Models\Historico\AcuerdoCatalogo;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 
 class AcuerdoCatalogoController extends Controller
 {
@@ -15,7 +16,9 @@ class AcuerdoCatalogoController extends Controller
      */
     public function index()
     {
-        return AcuerdoCatalogo::all();
+        // return AcuerdoCatalogo::all();
+
+        return view('modulos.historico.administrador.acuerdo-catalogo', ['response' => AcuerdoCatalogo::all()]);
     }
 
     /**
@@ -37,8 +40,6 @@ class AcuerdoCatalogoController extends Controller
     public function store(Request $request)
     {
         try {
-            //code..
-
             $estadoItem = AcuerdoCatalogo::updateOrCreate(
                 ['id' => $request->id],
                 [
@@ -46,9 +47,9 @@ class AcuerdoCatalogoController extends Controller
                     'descripcion' => $request->descripcion,
                 ]
             );
-            return $estadoItem;
+            return back()->with("notificacion", [ 'icon' => 'success', 'title' => 'Done...', 'text' => 'Elemento agregado']);
         } catch (\Exception $e) {
-            return $e;
+            return back()->with("notificacion", [ 'icon' => 'error', 'title' => 'No se pudo crear el recurso', 'text' => 'Error']);
         }
     }
 
@@ -92,13 +93,13 @@ class AcuerdoCatalogoController extends Controller
      * @param  \App\Models\Historico\AcuerdoCatalogo  $acuerdoCatalogo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         try {
-            AcuerdoCatalogo::destroy($id);
-            return "eliminado";
+            AcuerdoCatalogo::destroy($request->id);
+            return back()->with("notificacion", [ 'icon' => 'success', 'title' => 'Eliminado...', 'text' => 'Elemento elimiando']);
         } catch (\Exception $e) {
-            return $e;
+            return back()->with("notificacion", [ 'icon' => 'error', 'title' => 'No se pudo eliminar', 'text' => 'Error al eliminar']);
         }
     }
 }
