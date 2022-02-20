@@ -15,6 +15,8 @@ class FormatoDocumentoController extends Controller
      */
     public function index()
     {
+        return view('modulos.historico.administrador.formato-documento');
+
         return FormatoDocumento::all();
     }
 

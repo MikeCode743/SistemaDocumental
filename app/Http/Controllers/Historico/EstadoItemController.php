@@ -15,7 +15,10 @@ class EstadoItemController extends Controller
      */
     public function index()
     {
+        return view('modulos.historico.administrador.estado-item');
+
         return EstadoItem::all();
+
     }
 
     /**

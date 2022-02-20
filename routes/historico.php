@@ -19,14 +19,22 @@ use Illuminate\Http\Request;
 use App\Models\Historico\TemporadaGestion;
 use App\Http\Resources\Historico\TemporadaGestion as CollectionTemporadaGestion;
 
+
 Route::prefix('acta')->group(function () {
-    Route::get('/', function (Request $request) {
+    Route::get('/crear', function (Request $request) {
         $periodo_gestion =  CollectionTemporadaGestion::collection(TemporadaGestion::all());
         return view('modulos.historico.crear.acta', compact('periodo_gestion'));
     });
-});
 
+    Route::get('/listado', function (Request $request) {
+        return view('modulos.historico.listado.acta');
+    });
 
+    Route::get('/listado/detalle/{id}', function ($id) {
+        return view('modulos.historico.components.items-acta');
+    });
+
+<<<<<<< HEAD
 Route::prefix('buscar')->group(function () {
     Route::post('/actas', 'MetadataActaController@buscar');
     Route::post('/acta', 'MetadataActaController@obtenerActa');
@@ -39,24 +47,49 @@ Route::prefix('estado-item')->group(function () {
     Route::get('/', 'EstadoItemController@index');
     Route::post('/', 'EstadoItemController@store');
     Route::delete('/eliminar/{id}', 'EstadoItemController@destroy');
+=======
+>>>>>>> 26ba756693a0d01ecf28749931c4b7196fad8bf6
+});
+
+Route::prefix('acuerdo')->group(function () {
+    Route::get('/crear', function (Request $request) {
+        return view('modulos.historico.crear.acuerdo');
+    });
+    Route::get('/listado', function (Request $request) {
+        return view('modulos.historico.listado.acuerdo');
+    });
+
+    Route::get('/listado/detalle/{id}', function ($id) {
+        return view('modulos.historico.components.items-acuerdo');
+    });
+
+    Route::get('/listado/detalle-archivo/{id}', function ($id) {
+        return view('modulos.historico.components.detalle-archivo-acuerdo');
+    });
+});
+
+Route::prefix('acuerdo')->group(function () {
+    Route::get('/', 'AcuerdoCatalogoController@index');
+    Route::post('/', 'AcuerdoCatalogoController@store');
+    Route::post('/eliminar', 'AcuerdoCatalogoController@destroy');
+});
+
+Route::prefix('asunto')->group(function () {
+    Route::get('/', 'AsuntoCatalogoController@index');
+    Route::post('/', 'AsuntoCatalogoController@store');
+    Route::post('/eliminar/{id}', 'AsuntoCatalogoController@destroy');
+});
+
+Route::prefix('estado-item')->group(function () {
+    Route::get('/', 'EstadoItemController@index');
+    Route::post('/', 'EstadoItemController@store');
+    Route::post('/eliminar/{id}', 'EstadoItemController@destroy');
 });
 
 Route::prefix('formato-documento')->group(function () {
     Route::get('/', 'FormatoDocumentoController@index');
     Route::post('/', 'FormatoDocumentoController@store');
     Route::delete('/eliminar/{id}', 'FormatoDocumentoController@destroy');
-});
-
-Route::prefix('acuerdo')->group(function () {
-    Route::get('/', 'AcuerdoCatalogoController@index');
-    Route::post('/', 'AcuerdoCatalogoController@store');
-    Route::delete('/eliminar/{id}', 'AcuerdoCatalogoController@destroy');
-});
-
-Route::prefix('asunto')->group(function () {
-    Route::get('/', 'AsuntoCatalogoController@index');
-    Route::post('/', 'AsuntoCatalogoController@store');
-    Route::delete('/eliminar/{id}', 'AsuntoCatalogoController@destroy');
 });
 
 Route::prefix('temporada-gestion')->group(function () {

@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="744,0" last-zoom="0.75" max-obj-count="15"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<role name="mqyzwuqnzjyvwf"
+ inherit="true"
+ login="true"
+ encrypted="true"
+ connlimit="20"
+ password="********">
+</role>
+
+<role name="uflp8cv41g54tm"
+ superuser="true"
+ inherit="true"
+ login="true"
+ encrypted="true"
+ connlimit="500"
+ password="********">
+</role>
+
+<tablespace name="ephemeral" directory="'/tmp/tmp_tablespace'">
+	<role name="postgres"/>
+</tablespace>
+
+<database name="d6122lonsvsmgt" encoding="UTF8" lc-collate="en_US.UTF-8" lc-ctype="en_US.UTF-8" is-template="false" allow-conns="true">
+	<role name="mqyzwuqnzjyvwf"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="core_unidades" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="1800" y="1380"/>
+	<column name="codigo" not-null="true">
+		<type name="character varying" length="10"/>
+	</column>
+	<constraint name="pk_core_unidades" type="pk-constr" table="public.core_unidades">
+		<columns names="codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="core_unidades_pk" table="public.core_unidades"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="codigo"/>
+		</idxelement>
+</index>
+
+<table name="gd_detalle_asunto" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="2840" y="760"/>
+	<column name="id_gd_asunto_catalogo" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id_gd_metadata_acuerdo" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="pk_detalle_asunto" type="pk-constr" table="public.gd_detalle_asunto">
+		<columns names="id_gd_asunto_catalogo,id_gd_metadata_acuerdo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="detalle_asunto_pk" table="public.gd_detalle_asunto"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_asunto_catalogo"/>
+		</idxelement>
+		<idxelement use-sorting="false">
+			<column name="id_gd_metadata_acuerdo"/>
+		</idxelement>
+</index>
+
+<index name="metadata_acuerdo_asunto_fk" table="public.gd_detalle_asunto"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_metadata_acuerdo"/>
+		</idxelement>
+</index>
+
+<index name="asunto_metadata_acuerdo_fk" table="public.gd_detalle_asunto"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_asunto_catalogo"/>
+		</idxelement>
+</index>
+
+<sequence name="gd_acuerdo_catalogo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="gd_acuerdo_catalogo" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="2540" y="20"/>
+	<column name="id" not-null="true" sequence="public.gd_acuerdo_catalogo_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="character varying" length="200"/>
+	</column>
+	<column name="descripcion">
+		<type name="character varying" length="400"/>
+	</column>
+	<column name="updated_at">
+		<type name="date" length="0"/>
+	</column>
+	<column name="created_at">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pk_gd_acuerdo_catalogo" type="pk-constr" table="public.gd_acuerdo_catalogo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="gd_acuerdo_catalogo_pk" table="public.gd_acuerdo_catalogo"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id"/>
+		</idxelement>
+</index>
+
+<sequence name="gd_archivo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="gd_archivo" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="1580" y="400"/>
+	<column name="id" not-null="true" sequence="public.gd_archivo_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="character varying" length="200"/>
+	</column>
+	<column name="ruta_almacenado" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="tipo_mime" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="espacio_disco" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="num_version">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="updated_at">
+		<type name="date" length="0"/>
+	</column>
+	<column name="created_at">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pk_gd_archivo" type="pk-constr" table="public.gd_archivo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="gd_archivo_pk" table="public.gd_archivo"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id"/>
+		</idxelement>
+</index>
+
+<sequence name="gd_asunto_catalogo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="gd_asunto_catalogo" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="2480" y="340"/>
+	<column name="id" not-null="true" sequence="public.gd_asunto_catalogo_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id_gd_acuerdo_catalogo">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="character varying" length="200"/>
+	</column>
+	<column name="descripcion">
+		<type name="character varying" length="400"/>
+	</column>
+	<constraint name="pk_gd_asunto_catalogo" type="pk-constr" table="public.gd_asunto_catalogo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="gd_asunto_catalogo_pk" table="public.gd_asunto_catalogo"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id"/>
+		</idxelement>
+</index>
+
+<index name="especifica_fk" table="public.gd_asunto_catalogo"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_acuerdo_catalogo"/>
+		</idxelement>
+</index>
+
+<sequence name="gd_detalle_archivo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="gd_detalle_archivo" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="1640" y="860"/>
+	<column name="id" not-null="true" sequence="public.gd_detalle_archivo_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id_gd_archivo">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id_gd_metadata_acuerdo">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id_gd_metadata_acta">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="updated_at">
+		<type name="date" length="0"/>
+	</column>
+	<column name="created_at">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pk_gd_detalle_archivo" type="pk-constr" table="public.gd_detalle_archivo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="gd_detalle_archivo_pk" table="public.gd_detalle_archivo"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id"/>
+		</idxelement>
+</index>
+
+<index name="detalle_archivo2_fk" table="public.gd_detalle_archivo"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_metadata_acuerdo"/>
+		</idxelement>
+</index>
+
+<index name="detalle_archivo_fk" table="public.gd_detalle_archivo"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_archivo"/>
+		</idxelement>
+</index>
+
+<index name="describe_fk" table="public.gd_detalle_archivo"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_metadata_acta"/>
+		</idxelement>
+</index>
+
+<sequence name="gd_estado_item_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="gd_estado_item" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="2960" y="1100"/>
+	<column name="id" not-null="true" sequence="public.gd_estado_item_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="character varying" length="200"/>
+	</column>
+	<column name="nombre_corto" not-null="true">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="descripcion">
+		<type name="character varying" length="400"/>
+	</column>
+	<column name="is_visible" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="updated_at">
+		<type name="date" length="0"/>
+	</column>
+	<column name="created_at">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pk_gd_estado_item" type="pk-constr" table="public.gd_estado_item">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="gd_estado_item_pk" table="public.gd_estado_item"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id"/>
+		</idxelement>
+</index>
+
+<sequence name="gd_formato_documento_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="gd_formato_documento" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="2020" y="360"/>
+	<column name="id" not-null="true" sequence="public.gd_formato_documento_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="character varying" length="200"/>
+	</column>
+	<column name="descripcion">
+		<type name="character varying" length="400"/>
+	</column>
+	<column name="updated_at">
+		<type name="date" length="0"/>
+	</column>
+	<column name="created_at">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pk_gd_formato_documento" type="pk-constr" table="public.gd_formato_documento">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="gd_formato_documento_pk" table="public.gd_formato_documento"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id"/>
+		</idxelement>
+</index>
+
+<sequence name="gd_metadata_acta_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="gd_metadata_acta" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="940" y="1040"/>
+	<column name="id" not-null="true" sequence="public.gd_metadata_acta_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id_gd_temporada_gestion">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="numero_acta">
+		<type name="character varying" length="200"/>
+	</column>
+	<column name="updated_at">
+		<type name="date" length="0"/>
+	</column>
+	<column name="created_at">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pk_gd_metadata_acta" type="pk-constr" table="public.gd_metadata_acta">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="gd_metadata_acta_pk" table="public.gd_metadata_acta"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id"/>
+		</idxelement>
+</index>
+
+<index name="temporada_gestion_fk" table="public.gd_metadata_acta"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_temporada_gestion"/>
+		</idxelement>
+</index>
+
+<sequence name="gd_metadata_acuerdo_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="gd_metadata_acuerdo" layers="0" collapse-mode="2" max-obj-count="22" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="2320" y="780"/>
+	<column name="id" not-null="true" sequence="public.gd_metadata_acuerdo_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id_gd_estado_item">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id_gd_formato_documento">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="codigo_core_unidad">
+		<type name="character varying" length="10"/>
+	</column>
+	<column name="titulo">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="titulo_alternativo">
+		<type name="character varying" length="500"/>
+	</column>
+	<column name="resumen">
+		<type name="text" length="0"/>
+	</column>
+	<column name="autor">
+		<type name="text" length="0"/>
+	</column>
+	<column name="descripcion">
+		<type name="character varying" length="400"/>
+	</column>
+	<column name="fecha_publicacion">
+		<type name="date" length="0"/>
+	</column>
+	<column name="idioma">
+		<type name="text" length="0"/>
+	</column>
+	<column name="etiquetas">
+		<type name="text" length="0"/>
+	</column>
+	<column name="informacion_adicional">
+		<type name="text" length="0"/>
+	</column>
+	<column name="comentarios">
+		<type name="text" length="0"/>
+	</column>
+	<column name="anio_gestion">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="numero_acta">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="derechos">
+		<type name="text" length="0"/>
+	</column>
+	<column name="updated_at">
+		<type name="date" length="0"/>
+	</column>
+	<column name="created_at">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pk_gd_metadata_acuerdo" type="pk-constr" table="public.gd_metadata_acuerdo">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="gd_metadata_acuerdo_pk" table="public.gd_metadata_acuerdo"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id"/>
+		</idxelement>
+</index>
+
+<index name="es_fk" table="public.gd_metadata_acuerdo"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_formato_documento"/>
+		</idxelement>
+</index>
+
+<index name="tiene_un_fk" table="public.gd_metadata_acuerdo"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_estado_item"/>
+		</idxelement>
+</index>
+
+<index name="pertence_fk" table="public.gd_metadata_acuerdo"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="codigo_core_unidad"/>
+		</idxelement>
+</index>
+
+<sequence name="gd_persona_asociada_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="gd_persona_asociada" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="2520" y="1540"/>
+	<column name="id" not-null="true" sequence="public.gd_persona_asociada_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id_gd_metadata">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="remitente">
+		<type name="text" length="0"/>
+	</column>
+	<column name="beneficiario">
+		<type name="text" length="0"/>
+	</column>
+	<column name="created_at">
+		<type name="date" length="0"/>
+	</column>
+	<column name="updated_at">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pk_gd_persona_asociada" type="pk-constr" table="public.gd_persona_asociada">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="gd_persona_asociada_pk" table="public.gd_persona_asociada"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id"/>
+		</idxelement>
+</index>
+
+<index name="tiene_colaboradores_fk" table="public.gd_persona_asociada"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_gd_metadata"/>
+		</idxelement>
+</index>
+
+<sequence name="gd_temporada_gestion_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="gd_temporada_gestion" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="980" y="1480"/>
+	<column name="id" not-null="true" sequence="public.gd_temporada_gestion_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="anio_inicio" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="anio_finalizacion" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="nombre_rector" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="created_at">
+		<type name="date" length="0"/>
+	</column>
+	<column name="updated_at">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pk_gd_temporada_gestion" type="pk-constr" table="public.gd_temporada_gestion">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="gd_temporada_gestion_pk" table="public.gd_temporada_gestion"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id"/>
+		</idxelement>
+</index>
+
+<sequence name="rh_personal_id_rrhh_seq" cycle="false" start="1" increment="1" min-value="1" max-value="2147483647" cache="1">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+</sequence>
+
+<table name="rh_personal" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="mqyzwuqnzjyvwf"/>
+	<position x="1860" y="1600"/>
+	<column name="id_rrhh" not-null="true" sequence="public.rh_personal_id_rrhh_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nombre">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="pk_rh_personal" type="pk-constr" table="public.rh_personal">
+		<columns names="id_rrhh" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="rh_personal_pk" table="public.rh_personal"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="id_rrhh"/>
+		</idxelement>
+</index>
+
+<constraint name="fk_detalle__asunto_me_gd_asunt" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.gd_asunto_catalogo" table="public.gd_detalle_asunto">
+	<columns names="id_gd_asunto_catalogo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_detalle__metadata__gd_metad" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.gd_metadata_acuerdo" table="public.gd_detalle_asunto">
+	<columns names="id_gd_metadata_acuerdo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_gd_asunt_especific_gd_acuer" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.gd_acuerdo_catalogo" table="public.gd_asunto_catalogo">
+	<columns names="id_gd_acuerdo_catalogo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_gd_detal_describe_gd_metad" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.gd_metadata_acta" table="public.gd_detalle_archivo">
+	<columns names="id_gd_metadata_acta" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_gd_detal_detalle_a_gd_archi" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.gd_archivo" table="public.gd_detalle_archivo">
+	<columns names="id_gd_archivo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_gd_detal_detalle_a_gd_metad" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.gd_metadata_acuerdo" table="public.gd_detalle_archivo">
+	<columns names="id_gd_metadata_acuerdo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_gd_metad_temporada_gd_tempo" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.gd_temporada_gestion" table="public.gd_metadata_acta">
+	<columns names="id_gd_temporada_gestion" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_gd_metad_es_gd_forma" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.gd_formato_documento" table="public.gd_metadata_acuerdo">
+	<columns names="id_gd_formato_documento" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_gd_metad_pertence_core_uni" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.core_unidades" table="public.gd_metadata_acuerdo">
+	<columns names="codigo_core_unidad" ref-type="src-columns"/>
+	<columns names="codigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_gd_metad_tiene_un_gd_estad" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.gd_estado_item" table="public.gd_metadata_acuerdo">
+	<columns names="id_gd_estado_item" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_gd_perso_tiene_col_gd_metad" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.gd_metadata_acuerdo" table="public.gd_persona_asociada">
+	<columns names="id_gd_metadata" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_gd_detalle_asunto_gd_asunto_catalogo" type="relfk" layers="0"
+	 custom-color="#b57ac7"
+	 src-table="public.gd_detalle_asunto"
+	 dst-table="public.gd_asunto_catalogo" reference-fk="fk_detalle__asunto_me_gd_asunt"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_gd_detalle_asunto_gd_metadata_acuerdo" type="relfk" layers="0"
+	 custom-color="#2ef9b9"
+	 src-table="public.gd_detalle_asunto"
+	 dst-table="public.gd_metadata_acuerdo" reference-fk="fk_detalle__metadata__gd_metad"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_gd_asunto_catalogo_gd_acuerdo_catalogo" type="relfk" layers="0"
+	 custom-color="#a05574"
+	 src-table="public.gd_asunto_catalogo"
+	 dst-table="public.gd_acuerdo_catalogo" reference-fk="fk_gd_asunt_especific_gd_acuer"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_gd_detalle_archivo_gd_metadata_acta" type="relfk" layers="0"
+	 custom-color="#21770c"
+	 src-table="public.gd_detalle_archivo"
+	 dst-table="public.gd_metadata_acta" reference-fk="fk_gd_detal_describe_gd_metad"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_gd_detalle_archivo_gd_archivo" type="relfk" layers="0"
+	 custom-color="#1f4b8c"
+	 src-table="public.gd_detalle_archivo"
+	 dst-table="public.gd_archivo" reference-fk="fk_gd_detal_detalle_a_gd_archi"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_gd_detalle_archivo_gd_metadata_acuerdo" type="relfk" layers="0"
+	 custom-color="#a47088"
+	 src-table="public.gd_detalle_archivo"
+	 dst-table="public.gd_metadata_acuerdo" reference-fk="fk_gd_detal_detalle_a_gd_metad"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_gd_metadata_acta_gd_temporada_gestion" type="relfk" layers="0"
+	 custom-color="#72becd"
+	 src-table="public.gd_metadata_acta"
+	 dst-table="public.gd_temporada_gestion" reference-fk="fk_gd_metad_temporada_gd_tempo"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_gd_metadata_acuerdo_gd_formato_documento" type="relfk" layers="0"
+	 custom-color="#cf53f2"
+	 src-table="public.gd_metadata_acuerdo"
+	 dst-table="public.gd_formato_documento" reference-fk="fk_gd_metad_es_gd_forma"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_gd_metadata_acuerdo_core_unidades" type="relfk" layers="0"
+	 custom-color="#57ce35"
+	 src-table="public.gd_metadata_acuerdo"
+	 dst-table="public.core_unidades" reference-fk="fk_gd_metad_pertence_core_uni"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_gd_metadata_acuerdo_gd_estado_item" type="relfk" layers="0"
+	 custom-color="#a34fb3"
+	 src-table="public.gd_metadata_acuerdo"
+	 dst-table="public.gd_estado_item" reference-fk="fk_gd_metad_tiene_un_gd_estad"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_gd_persona_asociada_gd_metadata_acuerdo" type="relfk" layers="0"
+	 custom-color="#3c6405"
+	 src-table="public.gd_persona_asociada"
+	 dst-table="public.gd_metadata_acuerdo" reference-fk="fk_gd_perso_tiene_col_gd_metad"
+	 src-required="false" dst-required="false"/>
+
+<permission>
+	<object name="ephemeral" type="tablespace"/>
+	<roles names="postgres"/>
+	<privileges create="true"/>
+</permission>
+<permission>
+	<object name="ephemeral" type="tablespace"/>
+	<roles names="uflp8cv41g54tm"/>
+	<privileges create="true"/>
+</permission>
+<permission>
+	<object name="d6122lonsvsmgt" type="database"/>
+	<roles names="mqyzwuqnzjyvwf"/>
+	<privileges create="true" connect="true" temporary="true"/>
+</permission>
+</dbmodel>

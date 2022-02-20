@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Historico;
 
 use App\Http\Controllers\Controller;
+use App\Models\Historico\AcuerdoCatalogo;
 use App\Models\Historico\AsuntoCatalogo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AsuntoCatalogoController extends Controller
 {
@@ -14,8 +16,16 @@ class AsuntoCatalogoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return AsuntoCatalogo::all();
+    {   
+        $asuntos =  AsuntoCatalogo::all();
+
+        $asuntos = DB::table('gd_asunto_catalogo')
+            ->select('gd_asunto_catalogo.id','gd_asunto_catalogo.nombre','gd_acuerdo_catalogo.id as id_gd_acuerdo_catalogo', 'gd_acuerdo_catalogo.nombre as nombre_gd_acuerdo_catalogo', 'gd_asunto_catalogo.descripcion' )
+            ->join('gd_acuerdo_catalogo','gd_acuerdo_catalogo.id','gd_asunto_catalogo.id_gd_acuerdo_catalogo')->get(); 
+
+        $acuerdos = AcuerdoCatalogo::all('id', 'nombre as text');
+        return view('modulos.historico.administrador.asunto-catalogo', ['data' => $asuntos,'acuerdos'=> $acuerdos]);
+        // $asunto = AsuntoCatalogo::all();
     }
 
     /**
@@ -47,9 +57,10 @@ class AsuntoCatalogoController extends Controller
                     'id_gd_acuerdo_catalogo' => $request->id_gd_acuerdo_catalogo,
                 ]
             );
-            return $estadoItem;
+            return back()->with("notificacion", [ 'icon' => 'success', 'title' => 'Done...', 'text' => 'Elemento Agregado']);
         } catch (\Exception $e) {
-            return $e;
+            return back()->with("notificacion", [ 'icon' => 'error', 'title' => 'No se pudo crear el recurso', 'text' => 'Error']);
+
         }
     }
 
@@ -97,9 +108,9 @@ class AsuntoCatalogoController extends Controller
     {
         try {
             AsuntoCatalogo::destroy($id);
-            return "eliminado";
+            return back()->with("notificacion", [ 'icon' => 'success', 'title' => 'Eliminado...', 'text' => 'Elemento elimiando']);
         } catch (\Exception $e) {
-            return $e;
+            return back()->with("notificacion", [ 'icon' => 'error', 'title' => 'No se pudo eliminar', 'text' => 'Error al eliminar']);
         }
     }
 }
