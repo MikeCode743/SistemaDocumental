@@ -27,6 +27,14 @@ Route::prefix('acta')->group(function () {
 });
 
 
+Route::prefix('buscar')->group(function () {
+    Route::post('/actas', 'MetadataActaController@buscar');
+    Route::post('/acta', 'MetadataActaController@obtenerActa');
+    Route::post('/', 'EstadoItemController@store');
+    Route::delete('/eliminar/{id}', 'EstadoItemController@destroy');
+});
+
+
 Route::prefix('estado-item')->group(function () {
     Route::get('/', 'EstadoItemController@index');
     Route::post('/', 'EstadoItemController@store');
