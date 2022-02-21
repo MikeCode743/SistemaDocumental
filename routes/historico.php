@@ -33,13 +33,13 @@ Route::prefix('acta')->group(function () {
     Route::get('/listado/detalle/{id}', function ($id) {
         return view('modulos.historico.components.items-acta');
     });
+});
 
-<<<<<<< HEAD
 Route::prefix('buscar')->group(function () {
     Route::post('/actas', 'MetadataActaController@buscar');
     Route::post('/acta', 'MetadataActaController@obtenerActa');
-    Route::post('/', 'EstadoItemController@store');
-    Route::delete('/eliminar/{id}', 'EstadoItemController@destroy');
+    Route::post('/acuerdos', 'MetadataController@buscar');
+    Route::post('/acuerdo', 'MetadataController@obtenerAcuerdo');
 });
 
 
@@ -47,8 +47,6 @@ Route::prefix('estado-item')->group(function () {
     Route::get('/', 'EstadoItemController@index');
     Route::post('/', 'EstadoItemController@store');
     Route::delete('/eliminar/{id}', 'EstadoItemController@destroy');
-=======
->>>>>>> 26ba756693a0d01ecf28749931c4b7196fad8bf6
 });
 
 Route::prefix('acuerdo')->group(function () {

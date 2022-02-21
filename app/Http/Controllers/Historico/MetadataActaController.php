@@ -55,6 +55,7 @@ class MetadataActaController extends Controller
     {
         $data = $request->only(['numero_acta', 'temporada_gestion']);
 
+
         if (!empty($data['numero_acta']) and !empty($data['temporada_gestion'])) {
 
             $actas = DB::table('gd_metadata_acta')
@@ -62,19 +63,8 @@ class MetadataActaController extends Controller
                 ->join('gd_temporada_gestion', 'gd_metadata_acta.id_gd_temporada_gestion','gd_temporada_gestion.id' )
                 ->where("numero_acta", $data['numero_acta'])
                 ->where("id_gd_temporada_gestion", $data['temporada_gestion'])
-                ->get();
-
-                if(empty($actas)){
-                     return response()->json([
-                         'actas'=> [],
-                         'mensaje'=> "No se encontraron resultados"
-                     ]);               
-                }
-            return response()->json([
-                'actas'=>$actas,
-                'mensaje' => count($actas) > 1 ? "Se encontraron " . count($actas) . " resultados." : "Se encontro " . count($actas) . " resultado."
-
-            ]);
+                ->get();   
+            // Solo acta 
         }elseif(!empty($data['numero_acta']) and empty($data['temporada_gestion'])){
             $actas = DB::table('gd_metadata_acta')
                 ->select(['gd_metadata_acta.id', 'id_gd_temporada_gestion', 'numero_acta', 'anio_inicio', 'anio_finalizacion', 'nombre_rector'])
@@ -82,42 +72,32 @@ class MetadataActaController extends Controller
                 ->where("numero_acta", $data['numero_acta'])
                 ->get();
 
-            if (empty($actas)) {
-                return response()->json([
-                    'actas' => [],
-                    'mensaje' => "No se encontraron resultados"
-                ]);
-            }
-            return response()->json([
-                'actas' => $actas,
-                'mensaje' => count($actas) > 1 ? "Se encontraron " . count($actas) . " resultados." : "Se encontro " . count($actas) . " resultado."
-            ]);
+            // Solo Temporada Gestion
         } elseif (empty($data['numero_acta']) and !empty($data['temporada_gestion'])) {
             $actas = DB::table('gd_metadata_acta')
                 ->select(['gd_metadata_acta.id', 'id_gd_temporada_gestion', 'numero_acta', 'anio_inicio', 'anio_finalizacion', 'nombre_rector'])
                 ->join('gd_temporada_gestion', 'gd_metadata_acta.id_gd_temporada_gestion', 'gd_temporada_gestion.id')
                 ->where("id_gd_temporada_gestion", $data['temporada_gestion'])
                 ->get();
-
-            if (empty($actas)) {
-                return response()->json([
-                    'actas' => [],
-                    'mensaje' => "No se encontraron resultados"
-                ]);
-            }
-            return response()->json([
-                'actas' => $actas,
-                'mensaje' => count($actas) > 1 ? "Se encontraron " . count($actas) . " resultados." : "Se encontro " . count($actas) . " resultado."
-            ]);
-
+            //Sin Datos
         } else {
-
             return response()->json([
                 'actas' => [],
                 'mensaje' => "Los datos de busqueda estan vacios"
                 ]);
-                
         }
+
+        if (count($actas) == 0) {
+            return response()->json([
+                'actas' => [],
+                'mensaje' => "No se encontraron resultados"
+            ]);
+        }
+        return response()->json([
+            'actas' => $actas,
+            'mensaje' => count($actas) > 1 ? "Se encontraron " . count($actas) . " resultados." : "Se encontro " . count($actas) . " resultado."
+
+        ]);
     }
 
     /**
@@ -149,11 +129,6 @@ class MetadataActaController extends Controller
                 'mensaje' => "No se encontraron resultados"
             ]);
         }
-
-        
-
-        return $acta;
-
     }
 
     /**
