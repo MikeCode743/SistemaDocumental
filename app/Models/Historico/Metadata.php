@@ -37,6 +37,11 @@ class Metadata extends Model
             ->get();
 
     }
+
+    public function personasAsociadas()
+    {
+        return $this->hasMany('App\Models\Historico\PersonaAsociada','id_gd_metadata');
+    }
     
 
 
