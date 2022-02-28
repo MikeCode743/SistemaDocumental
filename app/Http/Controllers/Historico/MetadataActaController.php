@@ -146,11 +146,15 @@ class MetadataActaController extends Controller
         ->join('gd_temporada_gestion','gd_metadata_acta.id_gd_temporada_gestion', 'gd_temporada_gestion.id')
         ->get();
 
+        $i = 0;
         foreach ($temporadas as $t => $temporada) {
-            $resultados[$t]['actas']=[];
-            $resultados[$t]['temporada'] = date('Y', strtotime($temporada['anio_inicio'])). '-'. date('Y',strtotime($temporada['anio_finalizacion']));
-            $resultados[$t]['isOpen']= false;
-            array_push($resultados[$t]['actas'], $actas->where('id_gd_temporada_gestion', $temporada['id']));
+
+            $resultados[$i]['temporada'] = date('Y', strtotime($temporada['anio_inicio'])). '-'. date('Y',strtotime($temporada['anio_finalizacion']));
+            $resultados[$i]['isOpen']= false;
+            $resultados[$i]['actas']= [];
+            $resultados[$i]['actas']= $actas->where('id_gd_temporada_gestion', $temporada['id'])->values();
+            // array_push($resultados[$i]['actas'], $actas->where('id_gd_temporada_gestion', $temporada['id']));
+            $i++;
         }
 
         return $resultados;
