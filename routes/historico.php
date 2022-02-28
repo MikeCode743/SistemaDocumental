@@ -64,6 +64,11 @@ Route::prefix('acuerdo')->group(function () {
     Route::get('/listado/detalle-archivo/{id}', function ($id) {
         return view('modulos.historico.components.detalle-archivo-acuerdo');
     });
+
+    Route::get('/listado/acuerdos', 'MetadataController@obtenerAcuerdoPorAsunto');
+
+
+
 });
 
 Route::prefix('acuerdo')->group(function () {

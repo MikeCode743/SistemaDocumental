@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Historico;
 
 use App\Http\Controllers\Controller;
+use App\Models\Historico\AcuerdoCatalogo;
+use App\Models\Historico\AsuntoCatalogo;
+use App\Models\Historico\DetalleItem;
 use App\Models\Historico\Metadata;
 use Exception;
 use Illuminate\Http\Request;
@@ -114,6 +117,39 @@ class MetadataController extends Controller
                 'mensaje' => "No se encontraron resultados"
             ]);
         }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function obtenerAcuerdoPorAsunto(Request $request)
+    {
+
+        $acuerdo_catalogo = AcuerdoCatalogo::all();
+        $asunto_catalogo = AsuntoCatalogo::all();
+
+        $resultado = $acuerdo_catalogo;
+        $asuntos = $asunto_catalogo;
+
+        $data = DB::table('gd_detalle_asunto')
+        ->join('gd_metadata_acuerdo', 'gd_detalle_asunto.id_gd_metadata_acuerdo', 'gd_metadata_acuerdo.id')
+        ->join('gd_asunto_catalogo', 'gd_detalle_asunto.id_gd_asunto_catalogo', 'gd_asunto_catalogo.id')
+        ->get();
+
+
+        foreach ($asunto_catalogo as $a => $asunto) {
+            $asuntos[$a]['metadata']=[];
+            $asuntos[$a]['metadata'] = $data->where('id_gd_asunto_catalogo', $asunto['id'])->values();    
+        }
+        
+        foreach ($acuerdo_catalogo as $c => $acuerdo) {
+
+            $resultado[$c]['asuntos']= $asuntos->where('id_gd_acuerdo_catalogo', $acuerdo['id'])->values();
+        }
+
+        return $resultado;
     }
 
     /**

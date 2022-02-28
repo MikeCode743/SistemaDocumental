@@ -153,7 +153,6 @@ class MetadataActaController extends Controller
             $resultados[$i]['isOpen']= false;
             $resultados[$i]['actas']= [];
             $resultados[$i]['actas']= $actas->where('id_gd_temporada_gestion', $temporada['id'])->values();
-            // array_push($resultados[$i]['actas'], $actas->where('id_gd_temporada_gestion', $temporada['id']));
             $i++;
         }
 
