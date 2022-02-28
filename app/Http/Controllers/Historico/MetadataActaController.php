@@ -132,6 +132,31 @@ class MetadataActaController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function obtenerActaPorTemporada()
+    {
+        $resultados = [];
+
+        $temporadas = TemporadaGestion::all();
+        
+        $actas = MetadataActa::select('gd_metadata_acta.id','gd_metadata_acta.numero_acta', 'gd_metadata_acta.id_gd_temporada_gestion')
+        ->join('gd_temporada_gestion','gd_metadata_acta.id_gd_temporada_gestion', 'gd_temporada_gestion.id')
+        ->get();
+
+        foreach ($temporadas as $t => $temporada) {
+            $resultados[$t]['actas']=[];
+            $resultados[$t]['temporada'] = date('Y', strtotime($temporada['anio_inicio'])). '-'. date('Y',strtotime($temporada['anio_finalizacion']));
+            $resultados[$t]['isOpen']= false;
+            array_push($resultados[$t]['actas'], $actas->where('id_gd_temporada_gestion', $temporada['id']));
+        }
+
+        return $resultados;
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\MetadataActa  $metadataActa

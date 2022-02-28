@@ -35,6 +35,8 @@ Route::prefix('acta')->group(function () {
     });
     Route::post('/buscar', 'MetadataActaController@buscar');
     Route::post('/obtener', 'MetadataActaController@obtenerActa');
+
+    Route::get('/listado/temporada', 'MetadataActaController@obtenerActaPorTemporada');
 });
 
 
