@@ -45,59 +45,29 @@ class MetadataActaController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MetadataActa  $metadataActa
-     * @return \Illuminate\Http\Response
-     */
     public function buscar(Request $request)
     {
         $data = $request->only(['numero_acta', 'temporada_gestion']);
 
+        $query = MetadataActa::query();
 
-        if (!empty($data['numero_acta']) and !empty($data['temporada_gestion'])) {
+        $query->when(true, function ($q) use($data) {
+            $q->select(['gd_metadata_acta.id', 'id_gd_temporada_gestion', 'numero_acta', 'anio_inicio', 'anio_finalizacion', 'nombre_rector', 'gd_archivo.id as id_archivo', 'gd_archivo.nombre', 'gd_archivo.ruta_almacenado']);
+            $q->join('gd_temporada_gestion', 'gd_metadata_acta.id_gd_temporada_gestion', 'gd_temporada_gestion.id');
+            $q->join('gd_detalle_archivo', 'gd_detalle_archivo.id_gd_metadata_acta', 'gd_metadata_acta.id');
+            $q->join('gd_archivo', 'gd_detalle_archivo.id_gd_archivo', 'gd_archivo.id');
+            return $q;
+        });
+        $query->when(!empty($data['numero_acta']) , function ($q) use ($data){
+            return $q->where("numero_acta", $data['numero_acta']);
+        });
+        $query->when(!empty($data['titulo_alternativo']), function ($q) use($data) {
+            return $q->where("id_gd_temporada_gestion", $data['temporada_gestion']);
+        });
 
-            $actas = DB::table('gd_metadata_acta')
-                ->select(['gd_metadata_acta.id', 'id_gd_temporada_gestion', 'numero_acta','anio_inicio','anio_finalizacion','nombre_rector'])
-                ->join('gd_temporada_gestion', 'gd_metadata_acta.id_gd_temporada_gestion','gd_temporada_gestion.id' )
-                ->where("numero_acta", $data['numero_acta'])
-                ->where("id_gd_temporada_gestion", $data['temporada_gestion'])
-                ->get();   
-            // Solo acta 
-        }elseif(!empty($data['numero_acta']) and empty($data['temporada_gestion'])){
-            $actas = DB::table('gd_metadata_acta')
-                ->select(['gd_metadata_acta.id', 'id_gd_temporada_gestion', 'numero_acta', 'anio_inicio', 'anio_finalizacion', 'nombre_rector'])
-                ->join('gd_temporada_gestion', 'gd_metadata_acta.id_gd_temporada_gestion', 'gd_temporada_gestion.id')
-                ->where("numero_acta", $data['numero_acta'])
-                ->get();
+        $actas = $query->get();
 
-            // Solo Temporada Gestion
-        } elseif (empty($data['numero_acta']) and !empty($data['temporada_gestion'])) {
-            $actas = DB::table('gd_metadata_acta')
-                ->select(['gd_metadata_acta.id', 'id_gd_temporada_gestion', 'numero_acta', 'anio_inicio', 'anio_finalizacion', 'nombre_rector'])
-                ->join('gd_temporada_gestion', 'gd_metadata_acta.id_gd_temporada_gestion', 'gd_temporada_gestion.id')
-                ->where("id_gd_temporada_gestion", $data['temporada_gestion'])
-                ->get();
-            //Sin Datos
-        } else {
-            return response()->json([
-                'actas' => [],
-                'mensaje' => "Los datos de busqueda estan vacios"
-                ]);
-        }
-
-        if (count($actas) == 0) {
-            return response()->json([
-                'actas' => [],
-                'mensaje' => "No se encontraron resultados"
-            ]);
-        }
-        return response()->json([
-            'actas' => $actas,
-            'mensaje' => count($actas) > 1 ? "Se encontraron " . count($actas) . " resultados." : "Se encontro " . count($actas) . " resultado."
-
-        ]);
+        return view('modulos.historico.components.listado-items', compact('actas'));
     }
 
     /**
