@@ -35,6 +35,13 @@ class MetadataController extends Controller
         
         $query = Metadata::query();
 
+        $query->when(true, function ($q) use($data) {
+            $q->select(['gd_metadata_acuerdo.*', 'gd_archivo.id as id_archivo', 'gd_archivo.nombre', 'gd_archivo.ruta_almacenado']);
+            $q->join('gd_detalle_archivo', 'gd_detalle_archivo.id_gd_metadata_acuerdo', 'gd_metadata_acuerdo.id');
+            $q->join('gd_archivo', 'gd_detalle_archivo.id_gd_archivo', 'gd_archivo.id');
+            return $q;
+        });
+
         $query->when(!empty($data['titulo']) , function ($q) use ($data){
             return $q->where('titulo', 'ilike', '%' . $data['titulo'] . '%');
         });
@@ -75,17 +82,8 @@ class MetadataController extends Controller
         }
         
 
-        if (count($acuerdos) == 0) {
-            return response()->json([
-                'actas' => [],
-                'mensaje' => "No se encontraron resultados"
-            ]);
-        }
-        return response()->json([
-            'actas' => $acuerdos,
-            'mensaje' => count($acuerdos) > 1 ? "Se encontraron " . count($acuerdos) . " resultados." : "Se encontro " . count($acuerdos) . " resultado."
 
-        ]);
+        return $acuerdos;
 
     }
 
