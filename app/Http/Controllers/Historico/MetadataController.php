@@ -81,8 +81,6 @@ class MetadataController extends Controller
             $acuerdos = $lista_acuerdos;
         }
         
-
-
         return $acuerdos;
 
     }
